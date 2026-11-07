@@ -1,13 +1,9 @@
-// Site-wide constants. The GitHub link renders without a live star count
-// until the repo is public — fetching the real count is an M7 README-polish
-// task.
 export const siteConfig = {
-  name: "ai-saas-starter",
+  name: "INSPIRE",
   description:
-    "Open-source SaaS foundation: auth, Stripe subscriptions, and a credits ledger that survives webhook retries.",
+    "INSPIRE is a premium weekly shorts membership built around one message: you're not alone.",
   /** Canonical production URL — set to your deployment before launch. */
   url: "https://ai-saas-starter-six.vercel.app",
   github: "https://github.com/nikandr-surkov/ai-saas-starter",
-  /** The paid multi-provider version. One link, no upsell copy. */
   pro: "https://nikandr.com",
 } as const;

@@ -1,26 +1,22 @@
-import Image from "next/image";
 import Link from "next/link";
 
 import { siteConfig } from "@/config/site";
 
-// v4.1 footer — a destination, not an afterthought: full-width ink block,
-// giant Archivo wordmark with the yellow offset shadow, chunky mono link
-// chips with the nav hover physics, the mascot in the corner. Light-on-
-// ink text stays >=4.5:1 (canvas/ink 17.8, on-ink-muted 10.3).
 const columns = [
   {
-    title: "Product",
+    title: "Explore",
     links: [
-      { label: "sign in", href: "/login" },
-      { label: "sign up", href: "/signup" },
-      { label: "pricing", href: "/pricing" },
+      { label: "weekly shorts", href: "/#weekly-shorts" },
+      { label: "creator system", href: "/#creator-system" },
+      { label: "community", href: "/#community" },
     ],
   },
   {
-    title: "Repo",
+    title: "Membership",
     links: [
-      { label: "github", href: siteConfig.github, external: true },
-      { label: "pro version", href: siteConfig.pro, external: true },
+      { label: "join for $1", href: "/signup" },
+      { label: "sign in", href: "/login" },
+      { label: "watch the story", href: "/#flagship-story" },
     ],
   },
   {
@@ -39,20 +35,10 @@ export function MarketingFooter() {
         <div className="flex flex-wrap items-start justify-between gap-x-16 gap-y-12">
           <div className="max-w-full">
             <p className="font-display text-[clamp(3rem,1.6rem+3.5vw,6rem)] leading-none tracking-tight uppercase [text-shadow:0.05em_0.05em_0_var(--title-shadow)]">
-              ai-saas-
-              <br />
-              starter
+              INSPIRE
             </p>
-            <p className="mt-6 font-mono text-xs">
-              Built by{" "}
-              <a
-                href="https://nikandr.com"
-                target="_blank"
-                rel="noreferrer"
-                className="marker-hover underline underline-offset-4"
-              >
-                Nikandr Surkov
-              </a>
+            <p className="mt-6 max-w-sm text-lg">
+              Weekly shorts, creator tools, and a community that reminds people they are not alone.
             </p>
           </div>
           <div className="flex flex-wrap gap-x-14 gap-y-10">
@@ -60,26 +46,13 @@ export function MarketingFooter() {
               <nav key={column.title} aria-label={column.title}>
                 <p className="eyebrow mb-3.5">{column.title}</p>
                 <ul className="flex flex-col items-start gap-3">
-                  {column.links.map((link) =>
-                    "external" in link && link.external ? (
-                      <li key={link.label}>
-                        <a
-                          href={link.href}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="footer-chip"
-                        >
-                          {link.label}
-                        </a>
-                      </li>
-                    ) : (
-                      <li key={link.label}>
-                        <Link href={link.href} className="footer-chip">
-                          {link.label}
-                        </Link>
-                      </li>
-                    ),
-                  )}
+                  {column.links.map((link) => (
+                    <li key={link.label}>
+                      <Link href={link.href} className="footer-chip">
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
                 </ul>
               </nav>
             ))}
@@ -87,15 +60,11 @@ export function MarketingFooter() {
         </div>
         <div className="mt-14 flex flex-wrap items-end justify-between gap-6">
           <p className="font-mono text-[10.5px] tracking-wider text-muted-foreground">
-            © 2026 {siteConfig.name} · MIT license · ledger-true since day one
+            © 2026 {siteConfig.name} · You’re not alone.
           </p>
-          <Image
-            src="/illustrations/mascot-hello.png"
-            alt="Gold coin mascot with sunglasses pushed up, waving goodbye"
-            width={72}
-            height={72}
-            className="illo size-18"
-          />
+          <Link href="/signup" className="footer-chip">
+            become a member
+          </Link>
         </div>
       </div>
     </footer>

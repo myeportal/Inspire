@@ -25,7 +25,6 @@ const bricolage = Bricolage_Grotesque({
   subsets: ["latin"],
 });
 
-// DESIGN.md v4: the display face — hero H1 and section titles ONLY.
 const archivo = Archivo_Black({
   variable: "--font-archivo",
   weight: "400",
@@ -35,14 +34,14 @@ const archivo = Archivo_Black({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: `${siteConfig.name} — auth, Stripe, and a credits ledger that survives retries`,
+    default: `${siteConfig.name} — You’re not alone`,
     template: `%s — ${siteConfig.name}`,
   },
   description: siteConfig.description,
   openGraph: {
     type: "website",
     siteName: siteConfig.name,
-    title: siteConfig.name,
+    title: `${siteConfig.name} — You’re not alone`,
     description: siteConfig.description,
     images: [
       { url: "/og.png", width: 1200, height: 630, alt: siteConfig.name },
@@ -50,13 +49,12 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: siteConfig.name,
+    title: `${siteConfig.name} — You’re not alone`,
     description: siteConfig.description,
     images: ["/og.png"],
   },
 };
 
-// Browser chrome matches the canvas in both themes (Dark Mode v2).
 export const viewport: Viewport = {
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#FFFDF5" },
@@ -64,8 +62,6 @@ export const viewport: Viewport = {
   ],
 };
 
-// Applies the stored (or system) theme before first paint — no flash.
-// Class strategy: `.dark` on <html>, persisted in localStorage("theme").
 const themeScript = `try{var t=localStorage.getItem("theme");var d=t?t==="dark":window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.classList.toggle("dark",d)}catch(e){}`;
 
 export default function RootLayout({
