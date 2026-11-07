@@ -8,11 +8,10 @@ import { siteConfig } from "@/config/site";
 import { MobileMenu } from "./nav-mobile";
 
 const links = [
-  { href: "/#weekly-shorts", label: "Weekly shorts" },
-  { href: "/#loop", label: "The loop" },
-  { href: "/#creator-system", label: "Creators" },
-  { href: "/#community", label: "Community" },
-  { href: "/#join", label: "Join" },
+  { href: "/#how", label: "How it works" },
+  { href: "/#features", label: "Features" },
+  { href: "/pricing", label: "Pricing" },
+  { href: "/#faq", label: "FAQ" },
 ] as const;
 
 export async function MarketingNav() {
@@ -40,9 +39,6 @@ export async function MarketingNav() {
           ))}
         </nav>
         <div className="ml-auto flex items-center gap-3 lg:ml-0">
-          <span className="border-hard hidden rounded-full bg-pop-yellow px-3 py-1 font-mono text-xs uppercase shadow-hard-sm sm:inline-block">
-            $1/month
-          </span>
           <ThemeToggle />
           {session ? (
             <Link
@@ -63,7 +59,7 @@ export async function MarketingNav() {
                 href="/signup"
                 className="border-hard press rounded-md bg-primary px-3.5 py-1.5 text-sm font-semibold text-primary-foreground"
               >
-                Join now
+                Start free
               </Link>
             </>
           )}

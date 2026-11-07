@@ -4,19 +4,19 @@ import { siteConfig } from "@/config/site";
 
 const columns = [
   {
-    title: "Explore",
+    title: "Product",
     links: [
-      { label: "weekly shorts", href: "/#weekly-shorts" },
-      { label: "creator system", href: "/#creator-system" },
-      { label: "community", href: "/#community" },
+      { label: "how it works", href: "/#how" },
+      { label: "features", href: "/#features" },
+      { label: "pricing", href: "/pricing" },
     ],
   },
   {
-    title: "Membership",
+    title: "Account",
     links: [
-      { label: "join for $1", href: "/signup" },
+      { label: "start free", href: "/signup" },
       { label: "sign in", href: "/login" },
-      { label: "watch the story", href: "/#flagship-story" },
+      { label: "dashboard", href: "/dashboard" },
     ],
   },
   {
@@ -35,10 +35,10 @@ export function MarketingFooter() {
         <div className="flex flex-wrap items-start justify-between gap-x-16 gap-y-12">
           <div className="max-w-full">
             <p className="font-display text-[clamp(3rem,1.6rem+3.5vw,6rem)] leading-none tracking-tight uppercase [text-shadow:0.05em_0.05em_0_var(--title-shadow)]">
-              InspireMe
+              {siteConfig.name}
             </p>
             <p className="mt-6 max-w-sm text-lg">
-              Weekly shorts, creator tools, and a community that reminds people they are not alone.
+              {siteConfig.description}
             </p>
           </div>
           <div className="flex flex-wrap gap-x-14 gap-y-10">
@@ -60,10 +60,10 @@ export function MarketingFooter() {
         </div>
         <div className="mt-14 flex flex-wrap items-end justify-between gap-6">
           <p className="font-mono text-[10.5px] tracking-wider text-muted-foreground">
-            © 2026 {siteConfig.name} · You’re not alone.
+            © 2026 {siteConfig.name}
           </p>
           <Link href="/signup" className="footer-chip">
-            become a member
+            get started
           </Link>
         </div>
       </div>
