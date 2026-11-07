@@ -67,7 +67,7 @@ export function EmailLayout({
               }}
             >
               <span style={{ color: emailTheme.accent }}>▮</span>{" "}
-              ai-saas-starter
+              InspireMe
             </Text>
           </Section>
           {children}
@@ -86,7 +86,7 @@ export function EmailLayout({
               margin: 0,
             }}
           >
-            ai-saas-starter · open source · MIT
+            InspireMe · premium membership · myeportal
           </Text>
         </Container>
       </Body>

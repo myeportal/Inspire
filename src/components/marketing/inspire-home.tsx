@@ -72,7 +72,7 @@ export function InspireHome() {
           <div>
             <div className="mb-6 flex flex-wrap gap-3 text-sm font-medium">
               <span className="border-hard inline-flex items-center rounded-full bg-pop-yellow px-4 py-1.5 font-mono uppercase shadow-hard-sm">
-                INSPIRE
+                InspireMe
               </span>
               <span className="border-hard inline-flex items-center rounded-full bg-pop-sky px-4 py-1.5 font-mono uppercase shadow-hard-sm">
                 $1/month
@@ -208,7 +208,7 @@ export function InspireHome() {
           <SectionTitle
             eyebrow="Watch / create / share"
             title="Stay in motion"
-            subtitle="INSPIRE works like a loop, not a feed. Every step helps someone else too."
+            subtitle="InspireMe works like a loop, not a feed. Every step helps someone else too."
           />
           <div className="mt-10 grid gap-5 lg:grid-cols-3">
             {loop.map((item, index) => (
@@ -350,7 +350,7 @@ export function InspireHome() {
         <div className="mx-auto w-full max-w-[1160px] px-6">
           <div className="border-emph rounded-[34px] bg-pop-orange p-7 shadow-hard-lg sm:p-10">
             <p className="eyebrow text-foreground/80">Closing CTA</p>
-            <h2 className="text-title mt-4 max-w-[12ch]">Join INSPIRE for $1</h2>
+            <h2 className="text-title mt-4 max-w-[12ch]">Join InspireMe for $1</h2>
             <p className="mt-4 max-w-2xl text-xl">
               One dollar gets you the weekly shorts, the creator loop, and a place to make meaning together.
             </p>

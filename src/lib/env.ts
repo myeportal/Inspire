@@ -48,7 +48,7 @@ const schema = z
 
     // ── Email via Resend (optional — emails no-op without it) ─────────────
     RESEND_API_KEY: z.string().optional(),
-    EMAIL_FROM: z.string().default("AI SaaS Starter <onboarding@resend.dev>"),
+    EMAIL_FROM: z.string().default("InspireMe <onboarding@resend.dev>"),
 
     // ── Stripe ────────────────────────────────────────────────────────────
     // Optional in development so a fresh clone boots without a Stripe

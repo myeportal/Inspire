@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Membership",
   description:
-    "Join INSPIRE for $1/month and unlock weekly shorts, creator prompts, and community features.",
+    "Join InspireMe for $1/month and unlock weekly shorts, creator prompts, and community features.",
 };
 
 const inclusions = [
@@ -19,7 +19,7 @@ export default function PricingPage() {
     <div className="mx-auto w-full max-w-[1160px] px-6 pt-24 pb-26 [--title-shadow:var(--pop-yellow-bold)]">
       <div className="max-w-3xl">
         <p className="eyebrow">Membership</p>
-        <h1 className="text-display mt-4">Join INSPIRE for $1</h1>
+        <h1 className="text-display mt-4">Join InspireMe for $1</h1>
         <p className="mt-5 text-xl">
           One simple membership. Weekly emotional shorts, creator tools, and a community built around being there.
         </p>

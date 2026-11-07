@@ -20,7 +20,7 @@ function databaseUrl(): string {
   } catch {
     // No .env — fall through to the docker-compose default.
   }
-  return "postgres://postgres:postgres@localhost:5432/ai_saas_starter";
+  return "postgres://postgres:postgres@localhost:5432/inspireme";
 }
 
 export default defineConfig({

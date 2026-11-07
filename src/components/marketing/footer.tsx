@@ -35,7 +35,7 @@ export function MarketingFooter() {
         <div className="flex flex-wrap items-start justify-between gap-x-16 gap-y-12">
           <div className="max-w-full">
             <p className="font-display text-[clamp(3rem,1.6rem+3.5vw,6rem)] leading-none tracking-tight uppercase [text-shadow:0.05em_0.05em_0_var(--title-shadow)]">
-              INSPIRE
+              InspireMe
             </p>
             <p className="mt-6 max-w-sm text-lg">
               Weekly shorts, creator tools, and a community that reminds people they are not alone.

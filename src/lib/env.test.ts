@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import { deriveFeatures, missingBillingEnv, parseEnv } from "./env";
 
 const validEnv = {
-  DATABASE_URL: "postgres://postgres:postgres@localhost:5432/ai_saas_starter",
+  DATABASE_URL: "postgres://postgres:postgres@localhost:5432/inspireme",
   BETTER_AUTH_SECRET: "a".repeat(32),
   STRIPE_SECRET_KEY: "sk_test_123",
   STRIPE_WEBHOOK_SECRET: "whsec_123",

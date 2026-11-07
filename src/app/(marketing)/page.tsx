@@ -9,7 +9,7 @@ const jsonLd = {
   url: siteConfig.url,
   potentialAction: {
     "@type": "JoinAction",
-    name: "Join INSPIRE",
+    name: "Join InspireMe",
     target: `${siteConfig.url}/signup`,
   },
   offers: {

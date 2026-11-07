@@ -13,7 +13,7 @@ export const BASE_URL = `http://localhost:${PORT}`;
 /** Separate database so e2e users never pollute dev data. */
 export const E2E_DATABASE_URL =
   process.env.E2E_DATABASE_URL ??
-  "postgres://postgres:postgres@localhost:5432/ai_saas_starter_e2e";
+  "postgres://postgres:postgres@localhost:5432/inspireme_e2e";
 
 export default defineConfig({
   testDir: "./e2e",
