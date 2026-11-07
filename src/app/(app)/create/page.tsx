@@ -3,7 +3,7 @@ import Link from "next/link";
 import { FilmIcon, ImageUpIcon, SparklesIcon } from "lucide-react";
 
 import { requireSession } from "@/lib/auth/session";
-import { MemberHero, ProductionShowcase } from "@/components/member/member-ui";
+import { MemberHero } from "@/components/member/member-ui";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -24,11 +24,6 @@ export default async function CreatePage() {
         meta="Submission shell"
       />
 
-      <ProductionShowcase
-        eyebrow="Creator imagination"
-        title="Help creators see the end result before they upload"
-        description="Your reference look works especially well here: part comforting mascot energy, part futuristic edit bay. It turns the upload flow into a promise of what the SaaS will help them produce."
-      />
 
       <div className="grid gap-4 xl:grid-cols-[minmax(0,1.2fr)_320px]">
         <Card className="pt-0">

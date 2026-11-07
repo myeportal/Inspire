@@ -6,7 +6,6 @@ import {
   HeartHandshakeIcon,
   PlayIcon,
   SparklesIcon,
-  StarIcon,
   UsersIcon,
   VideoIcon,
 } from "lucide-react";
@@ -107,11 +106,11 @@ export function InspireHome() {
                 <ArrowRightIcon className="size-4" aria-hidden />
               </Link>
               <a
-                href="#flagship-story"
+                href="#weekly-shorts"
                 className="border-hard press inline-flex items-center justify-center gap-2 rounded-xl bg-card px-6 py-4 text-base font-semibold"
               >
                 <PlayIcon className="size-4" aria-hidden />
-                Watch the story
+                See how it works
               </a>
             </div>
             <div className="mt-8 grid gap-3 sm:grid-cols-3">
@@ -315,43 +314,6 @@ export function InspireHome() {
               ))}
             </div>
           </aside>
-        </div>
-      </section>
-
-      <section id="flagship-story" className="border-b-[3px] bg-foreground py-16 text-background sm:py-22 [--title-shadow:var(--pop-yellow-bold)]">
-        <div className="mx-auto w-full max-w-[1160px] px-6">
-          <SectionTitle
-            eyebrow="What they join"
-            title="One flagship story. A whole membership built around answering it."
-            subtitle="Every cycle starts with a signature film that sets the emotional tone, then members step in with their own notes, remixes, and responses."
-          />
-          <div className="mt-10 grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
-            <div className="border-hard rounded-[30px] bg-background/8 p-5 shadow-hard-lg">
-              <div className="flex aspect-[16/10] items-end rounded-[22px] border-hard border-background/70 bg-[radial-gradient(circle_at_top,#ffffff30,transparent_40%)] p-6">
-                <div>
-                  <p className="font-mono text-xs uppercase tracking-[0.18em] text-background/70">Video premiere</p>
-                  <h3 className="mt-3 max-w-md text-4xl font-extrabold">A story about the moment someone finally realizes they are not carrying it alone.</h3>
-                </div>
-              </div>
-            </div>
-            <div className="grid gap-4">
-              <div className="border-hard rounded-[28px] bg-pop-yellow p-6 text-foreground shadow-hard">
-                <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">What it does</p>
-                <p className="mt-3 text-xl">It gives new members an immediate emotional hook instead of asking them to figure the platform out alone.</p>
-              </div>
-              <div className="border-hard rounded-[28px] bg-pop-sky p-6 text-foreground shadow-hard">
-                <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">What follows</p>
-                <p className="mt-3 text-xl">Members answer with their own short, note, or remix, which is where the membership starts to feel personal.</p>
-              </div>
-              <Link
-                href="/signup"
-                className="border-hard press inline-flex items-center justify-center gap-2 rounded-[20px] bg-pop-mint px-6 py-4 text-lg font-semibold text-foreground"
-              >
-                Join and start your first response
-                <StarIcon className="size-4" aria-hidden />
-              </Link>
-            </div>
-          </div>
         </div>
       </section>
 

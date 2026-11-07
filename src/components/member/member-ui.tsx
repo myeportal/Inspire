@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRightIcon, PlayCircleIcon } from "lucide-react";
 
@@ -112,42 +111,3 @@ export function DetailList({
   );
 }
 
-export function ProductionShowcase({
-  eyebrow = "Imagine the pipeline",
-  title = "See the production engine before it exists",
-  description = "Use cinematic moments like these to help members picture how InspireMe turns raw ideas into polished weekly drops.",
-}: {
-  eyebrow?: string;
-  title?: string;
-  description?: string;
-}) {
-  return (
-    <section className="border-hard overflow-hidden rounded-[32px] bg-card p-5 shadow-hard-lg sm:p-6 lg:p-8">
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)] lg:items-center">
-        <div className="min-w-0 max-w-xl">
-          <p className="eyebrow">{eyebrow}</p>
-          <h2 className="text-title mt-4 max-w-[14ch]">{title}</h2>
-          <p className="mt-4 max-w-2xl text-lg">{description}</p>
-        </div>
-
-        <figure className="border-hard overflow-hidden rounded-[28px] bg-pop-pink shadow-hard-lg">
-          <div className="flex items-center justify-between gap-3 px-4 pt-4 font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground sm:px-5 sm:pt-5">
-            <span>Workflow</span>
-            <span>Local image</span>
-          </div>
-          <div className="border-hard m-3 overflow-hidden rounded-[22px] bg-background shadow-hard-sm sm:m-4">
-            <div className="relative aspect-square">
-              <Image
-                src="/funnel/production-support.jpg"
-                alt="A friendly mascot-style support visual used inside the production section."
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 48vw"
-              />
-            </div>
-          </div>
-        </figure>
-      </div>
-    </section>
-  );
-}

@@ -13,7 +13,7 @@ import { features } from "@/lib/env";
 import { watchDrops } from "@/lib/member-content";
 import { CountUpDigits } from "@/components/count-up-digits";
 import { LedgerTable, type LedgerEntry } from "@/components/ledger-table";
-import { MemberHero, ProductionShowcase, WatchCard } from "@/components/member/member-ui";
+import { MemberHero, WatchCard } from "@/components/member/member-ui";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -185,11 +185,6 @@ export default async function DashboardPage() {
         </div>
       </section>
 
-      <ProductionShowcase
-        eyebrow="Production vision"
-        title="Show members the studio behind each drop"
-        description="I’m using your reference style here as a premium visualization layer: cloud distribution, friendly brand energy, and a futuristic production desk that helps users imagine what the InspireMe SaaS will eventually automate."
-      />
 
       <section className="space-y-3">
         <div>
