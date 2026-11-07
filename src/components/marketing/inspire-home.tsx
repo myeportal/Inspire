@@ -12,40 +12,49 @@ import {
 } from "lucide-react";
 
 const weeklyShorts = [
-  "Monday reset",
-  "Midweek courage",
-  "Friday release",
+  {
+    title: "Monday reset",
+    copy: "When the week already feels heavy, start with a short that helps you breathe and begin again.",
+  },
+  {
+    title: "Midweek courage",
+    copy: "When energy dips and doubt gets loud, get one story and one prompt that help you keep going.",
+  },
+  {
+    title: "Friday release",
+    copy: "When you are carrying too much, end the week with something honest, gentle, and worth sharing.",
+  },
 ] as const;
 
 const loop = [
   {
     step: "01",
     title: "Watch",
-    copy: "Start with a short that names the feeling.",
+    copy: "Each drop starts with a cinematic short that helps you feel understood instead of left behind.",
   },
   {
     step: "02",
     title: "Create",
-    copy: "Turn your own moment into something worth keeping.",
+    copy: "Use the prompt, note, or remix angle to turn that feeling into something real and personal.",
   },
   {
     step: "03",
     title: "Share",
-    copy: "Pass it forward when someone else needs light.",
+    copy: "Offer it back to the community so someone else can find language, courage, or relief in it too.",
   },
 ] as const;
 
 const creatorSystem = [
-  "Members unlock creator prompts, drops, and remix tools.",
-  "Weekly themes guide the next short, scene, or voice note.",
-  "Featured stories rise from community saves, shares, and love.",
+  "Your membership unlocks the weekly prompt drops, creator tools, and remix starting points.",
+  "Every new theme gives you a simple way to answer the story with your own short, scene, or voice note.",
+  "The strongest member responses can become featured stories that pull the next person in.",
 ] as const;
 
 const communityFlow = [
-  "Watch the weekly short",
-  "Create your response",
-  "Share it with the circle",
-  "Get featured next week",
+  "Watch the weekly short and feel the theme land",
+  "Make your response with the member prompt",
+  "Share it with the circle that gets it",
+  "See the best work help lead the next drop",
 ] as const;
 
 const stats = [
@@ -182,21 +191,21 @@ export function InspireHome() {
       <section id="weekly-shorts" className="border-b-[3px] bg-background py-16 sm:py-22 [--title-shadow:var(--pop-yellow-bold)]">
         <div className="mx-auto w-full max-w-[1160px] px-6">
           <SectionTitle
-            eyebrow="Weekly shorts"
-            title="Feel seen weekly"
-            subtitle="Every week starts with a short film built to name the feeling and move it forward."
+            eyebrow="The problem"
+            title="Hard weeks need more than more scrolling"
+            subtitle="Most platforms pile on noise when you already feel off. InspireMe starts each week with a short film that names the feeling and gives you a gentler next step."
           />
           <div className="mt-10 grid gap-5 md:grid-cols-3">
             {weeklyShorts.map((item, index) => (
               <article
-                key={item}
+                key={item.title}
                 className={`pop-in tilt-l border-hard rounded-[28px] bg-card p-6 shadow-hard ${
                   index === 1 ? "md:translate-y-6" : index === 2 ? "md:-translate-y-3" : ""
                 }`}
               >
                 <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">Drop 0{index + 1}</p>
-                <h3 className="mt-8 text-3xl font-extrabold">{item}</h3>
-                <p className="mt-4 text-lg">A short story, a prompt, and one gentle next step.</p>
+                <h3 className="mt-8 text-3xl font-extrabold">{item.title}</h3>
+                <p className="mt-4 text-lg">{item.copy}</p>
               </article>
             ))}
           </div>
@@ -206,9 +215,9 @@ export function InspireHome() {
       <section id="loop" className="border-b-[3px] bg-pop-mint py-16 sm:py-22 [--title-shadow:var(--canvas)]">
         <div className="mx-auto w-full max-w-[1160px] px-6">
           <SectionTitle
-            eyebrow="Watch / create / share"
-            title="Stay in motion"
-            subtitle="InspireMe works like a loop, not a feed. Every step helps someone else too."
+            eyebrow="The product"
+            title="A simple loop that turns feeling into momentum"
+            subtitle="InspireMe is built around one repeatable rhythm: watch something that meets you where you are, make something back, then share it so the story keeps moving."
           />
           <div className="mt-10 grid gap-5 lg:grid-cols-3">
             {loop.map((item, index) => (
@@ -240,9 +249,9 @@ export function InspireHome() {
         <div className="mx-auto grid w-full max-w-[1160px] gap-10 px-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
           <div>
             <SectionTitle
-              eyebrow="Member creator system"
-              title="Make something back"
-              subtitle="Membership is not passive. It gives people a way to answer what moved them."
+              eyebrow="The membership"
+              title="For $1/month, you do not just watch"
+              subtitle="Membership turns InspireMe from a viewing experience into a creative one. You get the weekly tools that help you answer the story instead of only consuming it."
             />
             <div className="mt-8 flex flex-wrap gap-3">
               <span className="border-hard rounded-full bg-background px-4 py-2 font-mono text-sm uppercase shadow-hard-sm">
@@ -274,9 +283,9 @@ export function InspireHome() {
         <div className="mx-auto grid w-full max-w-[1160px] gap-10 px-6 lg:grid-cols-[1fr_0.9fr]">
           <div>
             <SectionTitle
-              eyebrow="Community flow"
-              title="Seen, then featured"
-              subtitle="The best responses do not disappear. They become the next doorway for someone else."
+              eyebrow="Why it works"
+              title="Your response can become someone else’s turning point"
+              subtitle="The strongest member stories do not vanish into a feed. They stay in circulation, get shared, and help shape what the community sees next."
             />
             <div className="mt-10 grid gap-4">
               {communityFlow.map((item, index) => (
@@ -290,9 +299,9 @@ export function InspireHome() {
             </div>
           </div>
           <aside className="border-hard rounded-[30px] bg-pop-pink p-6 shadow-hard-lg">
-            <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">Featured creator</p>
-            <h3 className="mt-5 text-4xl font-extrabold">From one reply to the front page.</h3>
-            <p className="mt-4 text-lg">Community saves and shares help the strongest pieces rise.</p>
+            <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">Featured creator path</p>
+            <h3 className="mt-5 text-4xl font-extrabold">From one honest reply to the story everyone sees next.</h3>
+            <p className="mt-4 text-lg">Community saves and shares help the most resonant member work rise to the surface.</p>
             <div className="mt-8 space-y-3">
               {[
                 "Saved by members",
@@ -312,33 +321,33 @@ export function InspireHome() {
       <section id="flagship-story" className="border-b-[3px] bg-foreground py-16 text-background sm:py-22 [--title-shadow:var(--pop-yellow-bold)]">
         <div className="mx-auto w-full max-w-[1160px] px-6">
           <SectionTitle
-            eyebrow="Flagship story"
-            title="The film at the center"
-            subtitle="Lead with one signature story that sets the tone, then invite members to answer it."
+            eyebrow="What they join"
+            title="One flagship story. A whole membership built around answering it."
+            subtitle="Every cycle starts with a signature film that sets the emotional tone, then members step in with their own notes, remixes, and responses."
           />
           <div className="mt-10 grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
             <div className="border-hard rounded-[30px] bg-background/8 p-5 shadow-hard-lg">
               <div className="flex aspect-[16/10] items-end rounded-[22px] border-hard border-background/70 bg-[radial-gradient(circle_at_top,#ffffff30,transparent_40%)] p-6">
                 <div>
                   <p className="font-mono text-xs uppercase tracking-[0.18em] text-background/70">Video premiere</p>
-                  <h3 className="mt-3 max-w-md text-4xl font-extrabold">A story about the moment someone finally feels understood.</h3>
+                  <h3 className="mt-3 max-w-md text-4xl font-extrabold">A story about the moment someone finally realizes they are not carrying it alone.</h3>
                 </div>
               </div>
             </div>
             <div className="grid gap-4">
               <div className="border-hard rounded-[28px] bg-pop-yellow p-6 text-foreground shadow-hard">
                 <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">What it does</p>
-                <p className="mt-3 text-xl">It gives the whole platform a heartbeat.</p>
+                <p className="mt-3 text-xl">It gives new members an immediate emotional hook instead of asking them to figure the platform out alone.</p>
               </div>
               <div className="border-hard rounded-[28px] bg-pop-sky p-6 text-foreground shadow-hard">
                 <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">What follows</p>
-                <p className="mt-3 text-xl">Members respond with their own short, note, or remix.</p>
+                <p className="mt-3 text-xl">Members answer with their own short, note, or remix, which is where the membership starts to feel personal.</p>
               </div>
               <Link
                 href="/signup"
                 className="border-hard press inline-flex items-center justify-center gap-2 rounded-[20px] bg-pop-mint px-6 py-4 text-lg font-semibold text-foreground"
               >
-                Start your first response
+                Join and start your first response
                 <StarIcon className="size-4" aria-hidden />
               </Link>
             </div>
@@ -349,17 +358,17 @@ export function InspireHome() {
       <section id="join" className="bg-background py-18 sm:py-24 [--title-shadow:var(--pop-yellow-bold)]">
         <div className="mx-auto w-full max-w-[1160px] px-6">
           <div className="border-emph rounded-[34px] bg-pop-orange p-7 shadow-hard-lg sm:p-10">
-            <p className="eyebrow text-foreground/80">Closing CTA</p>
-            <h2 className="text-title mt-4 max-w-[12ch]">Join InspireMe for $1</h2>
+            <p className="eyebrow text-foreground/80">Join the membership</p>
+            <h2 className="text-title mt-4 max-w-[12ch]">Join InspireMe for $1/month</h2>
             <p className="mt-4 max-w-2xl text-xl">
-              One dollar gets you the weekly shorts, the creator loop, and a place to make meaning together.
+              Start with the weekly short, unlock the creator tools, and step into a community that turns hard moments into shared meaning.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
                 href="/signup"
                 className="border-emph press inline-flex items-center justify-center rounded-xl bg-primary px-6 py-4 text-base font-semibold text-primary-foreground"
               >
-                Become a member
+                Start for $1/month
               </Link>
               <Link
                 href="/login"
