@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { requireSession } from "@/lib/auth/session";
 import { featuredMoments, watchDrops } from "@/lib/member-content";
-import { MemberHero } from "@/components/member/member-ui";
+import { MemberHero, ProductionShowcase } from "@/components/member/member-ui";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -25,6 +25,12 @@ export default async function FeaturedPage() {
             <Link href={`/library/${heroDrop.slug}`}>Watch featured short</Link>
           </Button>
         }
+      />
+
+      <ProductionShowcase
+        eyebrow="Spotlight staging"
+        title="Frame each featured drop like a produced event"
+        description="This gives the featured page more cinematic context — not just what members watch, but how the InspireMe system develops, polishes, and releases that moment."
       />
 
       <div className="grid gap-4 xl:grid-cols-[minmax(0,1.3fr)_320px]">

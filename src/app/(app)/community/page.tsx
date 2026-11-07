@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { requireSession } from "@/lib/auth/session";
 import { communityHighlights } from "@/lib/member-content";
-import { MemberHero } from "@/components/member/member-ui";
+import { MemberHero, ProductionShowcase } from "@/components/member/member-ui";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -51,6 +51,12 @@ export default async function CommunityPage() {
             <Link href="/create">Pitch a topic</Link>
           </Button>
         }
+      />
+
+      <ProductionShowcase
+        eyebrow="Community production loop"
+        title="Let members imagine how their ideas move through the system"
+        description="The reference style is useful here too: from safe, friendly brand trust to a more advanced behind-the-scenes production engine that turns community prompts into polished drops."
       />
 
       <div className="grid gap-4 lg:grid-cols-3">

@@ -11,6 +11,8 @@ import {
   VideoIcon,
 } from "lucide-react";
 
+import { ProductionShowcase } from "@/components/member/member-ui";
+
 const weeklyShorts = [
   "Monday reset",
   "Midweek courage",
@@ -306,6 +308,16 @@ export function InspireHome() {
               ))}
             </div>
           </aside>
+        </div>
+      </section>
+
+      <section className="border-b-[3px] bg-background py-16 sm:py-22">
+        <div className="mx-auto w-full max-w-[1160px] px-6">
+          <ProductionShowcase
+            eyebrow="Production imagination"
+            title="Help people picture the machine behind the hope"
+            description="We’re weaving in visual cues inspired by your reference art so visitors can imagine the member journey, creator workflow, and AI-assisted production process before the deeper SaaS tools are fully wired."
+          />
         </div>
       </section>
 

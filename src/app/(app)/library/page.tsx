@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { requireSession } from "@/lib/auth/session";
 import { watchDrops } from "@/lib/member-content";
-import { MemberHero, WatchCard } from "@/components/member/member-ui";
+import { MemberHero, ProductionShowcase, WatchCard } from "@/components/member/member-ui";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
@@ -24,6 +24,12 @@ export default async function LibraryPage() {
             <Link href="/featured">See featured pick</Link>
           </Button>
         }
+      />
+
+      <ProductionShowcase
+        eyebrow="Visual reference"
+        title="Make the library feel like a living production pipeline"
+        description="These cinematic system panels help users picture how stories travel from inspiration to editing to release across the InspireMe member network."
       />
 
       <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_320px]">
