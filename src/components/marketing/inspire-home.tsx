@@ -11,8 +11,6 @@ import {
   VideoIcon,
 } from "lucide-react";
 
-import { ProductionShowcase } from "@/components/member/member-ui";
-
 const weeklyShorts = [
   "Monday reset",
   "Midweek courage",
@@ -308,16 +306,6 @@ export function InspireHome() {
               ))}
             </div>
           </aside>
-        </div>
-      </section>
-
-      <section className="bg-background pt-16 pb-10 sm:pt-22 sm:pb-12">
-        <div className="mx-auto w-full max-w-[1160px] px-6">
-          <ProductionShowcase
-            eyebrow="How it comes together"
-            title="A simple glimpse behind the weekly drop"
-            description="A restrained visual bridge is enough here: show the member journey, hint at the workflow, then move quickly into the flagship story."
-          />
         </div>
       </section>
 
