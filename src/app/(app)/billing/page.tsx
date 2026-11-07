@@ -121,7 +121,7 @@ export default async function BillingPage() {
   if (!features.billing) {
     return (
       <div className="space-y-6">
-        <PageHeader eyebrow="Account" title="Billing" />
+        <PageHeader eyebrow="Membership" title="Subscription & credits" />
         <Card className="max-w-xl">
           <CardHeader>
             <p className="eyebrow">Setup required</p>
@@ -162,7 +162,7 @@ export default async function BillingPage() {
 
   return (
     <div className="space-y-6">
-      <PageHeader eyebrow="Account" title="Billing" />
+      <PageHeader eyebrow="Membership" title="Subscription & credits" />
 
       <Card className="max-w-xl pt-0">
         {/* v4 medium-fun app register: panel-colored header strips. */}

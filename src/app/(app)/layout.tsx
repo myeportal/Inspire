@@ -40,6 +40,9 @@ export default async function AppLayout({
             <UserMenu name={session.user.name} email={session.user.email} />
           </div>
         </header>
+        <div className="border-b-2 px-4 py-3 md:hidden">
+          <SidebarNav compact />
+        </div>
         <main className="flex-1 p-6">{children}</main>
       </div>
     </div>

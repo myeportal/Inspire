@@ -33,7 +33,17 @@ export default async function SettingsPage() {
 
   return (
     <div className="space-y-6">
-      <PageHeader eyebrow="Account" title="Settings" />
+      <PageHeader eyebrow="Account" title="Profile & settings" />
+
+      <Card className="max-w-2xl pt-0">
+        <CardHeader className="border-b-2 bg-pop-orange py-3.5">
+          <p className="eyebrow">Member identity</p>
+          <CardTitle>Everything tied to your membership</CardTitle>
+        </CardHeader>
+        <CardContent className="text-sm">
+          Keep your name, email, password, and connected sign-in methods current here. Subscription and credits stay in Billing so the member account surfaces are easier to scan.
+        </CardContent>
+      </Card>
 
       <Card className="max-w-2xl pt-0">
         {/* v4 medium-fun app register: panel-colored header strips. */}
