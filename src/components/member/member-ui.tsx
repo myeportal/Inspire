@@ -1,8 +1,8 @@
+import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRightIcon,
   BotIcon,
-  BoxesIcon,
   CpuIcon,
   NetworkIcon,
   PlayCircleIcon,
@@ -198,6 +198,40 @@ export function ProductionShowcase({
               <BotIcon className="size-5 text-pop-pink" aria-hidden />
               <p className="text-sm text-white/80">This side helps members imagine the behind-the-scenes engine, not just the final video.</p>
             </div>
+          </div>
+        </article>
+      </div>
+
+      <div className="mt-4 grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
+        <article className="overflow-hidden rounded-[26px] border border-white/15 bg-white/5 shadow-hard-sm backdrop-blur-sm">
+          <div className="relative aspect-square">
+            <Image
+              src="/funnel/production-cloud.jpg"
+              alt="A friendly cloud mascot surrounded by major platform icons, showing wide distribution potential for InspireMe content."
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 33vw"
+            />
+          </div>
+          <div className="space-y-2 p-4">
+            <p className="text-xs uppercase tracking-[0.2em] text-white/65">Exact reference image</p>
+            <p className="text-sm text-white/80">We use this in the funnel to make the distribution side of the platform feel approachable, broad, and brand-safe.</p>
+          </div>
+        </article>
+
+        <article className="overflow-hidden rounded-[26px] border border-white/15 bg-white/5 shadow-hard-sm backdrop-blur-sm">
+          <div className="relative aspect-[16/9]">
+            <Image
+              src="/funnel/production-studio.jpg"
+              alt="A futuristic AI production workspace used to show how InspireMe can guide story creation, rendering, and editing."
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+            />
+          </div>
+          <div className="space-y-2 p-4">
+            <p className="text-xs uppercase tracking-[0.2em] text-white/65">Exact reference image</p>
+            <p className="text-sm text-white/80">This anchors the how-it-gets-made story in the funnel so creators can picture the production workflow before uploads are fully wired.</p>
           </div>
         </article>
       </div>
