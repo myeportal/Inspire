@@ -121,104 +121,32 @@ export function ProductionShowcase({
   title?: string;
   description?: string;
 }) {
-  const highlights = [
-    "Human story first",
-    "Weekly drop rhythm",
-    "AI-assisted production",
-  ] as const;
-
-  const visuals = [
-    {
-      image: "/funnel/production-cloud.jpg",
-      alt: "A friendly cloud mascot surrounded by major platform icons, showing wide distribution potential for InspireMe content.",
-      aspect: "aspect-[4/5]",
-      accent: "bg-pop-pink",
-      label: "Reach",
-      sizes: "(max-width: 768px) 100vw, 240px",
-    },
-    {
-      image: "/funnel/production-studio.jpg",
-      alt: "A futuristic AI production workspace used to show how InspireMe can guide story creation, rendering, and editing.",
-      aspect: "aspect-[16/10]",
-      accent: "bg-pop-sky",
-      label: "Workflow",
-      sizes: "(max-width: 768px) 100vw, 420px",
-    },
-  ] as const;
-
   return (
     <section className="border-hard overflow-hidden rounded-[32px] bg-card p-5 shadow-hard-lg sm:p-6 lg:p-8">
-      <div className="grid gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-center">
-        <div className="min-w-0 space-y-6">
-          <div className="max-w-xl">
-            <p className="eyebrow">{eyebrow}</p>
-            <h2 className="text-title mt-4 max-w-[14ch]">{title}</h2>
-            <p className="mt-4 max-w-2xl text-lg">{description}</p>
-          </div>
-
-          <div className="flex flex-wrap gap-2.5 sm:gap-3">
-            {highlights.map((item, index) => (
-              <span
-                key={item}
-                className={cn(
-                  "border-hard rounded-full px-4 py-2 font-mono text-xs uppercase shadow-hard-sm sm:text-sm",
-                  index === 0
-                    ? "bg-pop-yellow"
-                    : index === 1
-                      ? "bg-pop-mint"
-                      : "bg-pop-pink",
-                )}
-              >
-                {item}
-              </span>
-            ))}
-          </div>
-
-          <div className="border-hard rounded-[24px] bg-background p-5 shadow-hard sm:p-6">
-            <ul className="space-y-3 text-base leading-7 sm:text-lg">
-              {[
-                "Use the uploaded images as support, not the whole pitch.",
-                "Keep the production story short and grounded in the member journey.",
-                "Bridge naturally into the flagship story instead of competing with it.",
-              ].map((item) => (
-                <li key={item} className="flex gap-3">
-                  <span className="mt-2 size-2 shrink-0 rounded-full bg-pop-yellow-bold" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+      <div className="grid gap-6 lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)] lg:items-center">
+        <div className="min-w-0 max-w-xl">
+          <p className="eyebrow">{eyebrow}</p>
+          <h2 className="text-title mt-4 max-w-[14ch]">{title}</h2>
+          <p className="mt-4 max-w-2xl text-lg">{description}</p>
         </div>
 
-        <div className="min-w-0">
-          <div className="grid gap-4 md:grid-cols-[minmax(0,0.75fr)_minmax(0,1fr)]">
-            {visuals.map((visual) => (
-              <figure
-                key={visual.image}
-                className={cn(
-                  "border-hard overflow-hidden rounded-[28px] shadow-hard",
-                  visual.accent,
-                )}
-              >
-                <div className="flex items-center justify-between gap-3 px-4 pt-4 font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground sm:px-5 sm:pt-5">
-                  <span>{visual.label}</span>
-                  <span>Local image</span>
-                </div>
-                <div className="border-hard m-3 overflow-hidden rounded-[22px] bg-background shadow-hard-sm sm:m-4">
-                  <div className={cn("relative", visual.aspect)}>
-                    <Image
-                      src={visual.image}
-                      alt={visual.alt}
-                      fill
-                      className="object-cover"
-                      sizes={visual.sizes}
-                    />
-                  </div>
-                </div>
-              </figure>
-            ))}
+        <figure className="border-hard overflow-hidden rounded-[28px] bg-pop-pink shadow-hard-lg">
+          <div className="flex items-center justify-between gap-3 px-4 pt-4 font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground sm:px-5 sm:pt-5">
+            <span>Workflow</span>
+            <span>Local image</span>
           </div>
-        </div>
+          <div className="border-hard m-3 overflow-hidden rounded-[22px] bg-background shadow-hard-sm sm:m-4">
+            <div className="relative aspect-[16/10]">
+              <Image
+                src="/funnel/production-studio.jpg"
+                alt="A futuristic AI production workspace used to show how InspireMe can guide story creation, rendering, and editing."
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 48vw"
+              />
+            </div>
+          </div>
+        </figure>
       </div>
     </section>
   );
