@@ -1,0 +1,826 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-instrument-sans);
+  --font-mono: var(--font-martian-mono);
+  /* v4 four faces, four jobs: Archivo Black = display (H1 + section
+     titles ONLY), Bricolage = subheads/cards, Instrument = body,
+     Martian Mono = data. */
+  --font-display: var(--font-archivo);
+  --font-heading: var(--font-bricolage);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-text: var(--primary-text);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-paper-2: var(--paper-2);
+  --color-pop-yellow: var(--pop-yellow);
+  --color-pop-mint: var(--pop-mint);
+  --color-pop-sky: var(--pop-sky);
+  --color-pop-pink: var(--pop-pink);
+  --color-pop-orange: var(--pop-orange);
+  /* Dark Mode v2: BOLD role — theme-invariant bright fills. */
+  --color-pop-yellow-bold: var(--pop-yellow-bold);
+  --color-pop-mint-bold: var(--pop-mint-bold);
+  --color-pop-sky-bold: var(--pop-sky-bold);
+  --color-pop-pink-bold: var(--pop-pink-bold);
+  --color-pop-orange-bold: var(--pop-orange-bold);
+  --color-ink-deep: var(--ink-deep);
+  --color-credit: var(--credit);
+  --color-credit-text: var(--credit-text);
+  --color-highlight: var(--pop-yellow);
+  --color-on-accent: var(--on-accent);
+  --color-debit-text: var(--debit-text);
+  --color-hairline: var(--hairline);
+  --color-rule: var(--rule);
+  /* DESIGN.md v3: 12px radius for cards/buttons; pills via rounded-full. */
+  --radius-sm: var(--radius);
+  --radius-md: var(--radius);
+  --radius-lg: var(--radius);
+  --radius-xl: var(--radius);
+  --radius-2xl: var(--radius);
+  --radius-3xl: var(--radius);
+  --radius-4xl: var(--radius);
+}
+
+/* ── Playful neo-brutalist raw tokens (DESIGN.md v3) ────────────────────────
+   Hard-coded oklch values live ONLY in these two blocks. Color roles are
+   strict: --action (yellow) = primary buttons with ink text; --credit =
+   positive amounts/success ONLY; --debit = negative/destructive ONLY;
+   --pop-* panels are backgrounds, never text. --credit-text/--debit-text
+   exist because the raw values FAIL WCAG as light-mode text (1.85 / 3.63). */
+
+:root {
+  color-scheme: light;
+  --ink: oklch(0.2 0.02 90);
+  /* Dark Mode v2: fixed text/border token for BOLD pop fills, BOTH
+     themes. Defined once, never redefined in .dark. */
+  --ink-deep: oklch(0.18 0.02 90);
+  /* Warm cream ≈ #FFFDF5 (DESIGN.md v3.1). */
+  --canvas: oklch(0.993 0.011 95);
+  --pop-yellow: oklch(0.88 0.16 95);
+  --pop-mint: oklch(0.88 0.13 150);
+  --pop-sky: oklch(0.86 0.09 230);
+  --pop-pink: oklch(0.86 0.1 350);
+  --pop-orange: oklch(0.82 0.13 60);
+  /* BOLD role: in light mode these alias the pops exactly, so light is
+     bit-for-bit unchanged; .dark gives them their own bright values. */
+  --pop-yellow-bold: var(--pop-yellow);
+  --pop-mint-bold: var(--pop-mint);
+  --pop-sky-bold: var(--pop-sky);
+  --pop-pink-bold: var(--pop-pink);
+  --pop-orange-bold: var(--pop-orange);
+  --credit: oklch(0.75 0.18 150);
+  --debit: oklch(0.62 0.23 27);
+  --radius: 12px;
+  --credit-text: color-mix(in oklch, var(--credit), var(--ink) 45%);
+  --debit-text: color-mix(in oklch, var(--debit), var(--ink) 25%);
+  /* muted text stays ≥4.5 on every panel: 25% mix in light (the warm
+     canvas lightens the mix — 35% failed on sky/pink/orange)… */
+  --muted-ink: color-mix(in oklch, var(--ink), var(--canvas) 25%);
+  /* …and muted text on the ink closing band. */
+  --on-ink-muted: color-mix(in oklch, var(--canvas), var(--ink) 22%);
+}
+
+/* ── Dark Mode v2: "the same poster at night" ──────────────────────────
+   Saturation survives; large luminous areas do not. Every pop has TWO
+   roles: SURFACE (deep tinted charcoal here, bright in light) for big
+   fills, and BOLD (bright in both themes, always with --ink-deep text)
+   for buttons/chips/stickers/highlights. Shadows keep var(--ink) —
+   cream hard shadows are the night signature. */
+.dark {
+  color-scheme: dark;
+  /* Deep warm espresso-charcoal — never blue-gray, never pure black. */
+  --canvas: oklch(0.16 0.015 80);
+  /* Warm cream, not white — no glare. */
+  --ink: oklch(0.955 0.012 95);
+  /* BOLD pops: bright, slightly deepened vs light mode to cut glare. */
+  --pop-yellow-bold: oklch(0.86 0.17 95);
+  --pop-mint-bold: oklch(0.85 0.14 150);
+  --pop-sky-bold: oklch(0.82 0.11 230);
+  --pop-pink-bold: oklch(0.81 0.12 350);
+  --pop-orange-bold: oklch(0.8 0.14 60);
+  /* SURFACE pops: tinted charcoal. Percentages tuned per hue — sky and
+     pink take more (deep navy / deep berry); yellow takes the least
+     (dark yellow turns olive — bright yellow ACCENTS carry that
+     section's identity instead). */
+  --pop-yellow: color-mix(in oklch, var(--canvas), var(--pop-yellow-bold) 8%);
+  --pop-mint: color-mix(in oklch, var(--canvas), var(--pop-mint-bold) 14%);
+  --pop-sky: color-mix(in oklch, var(--canvas), var(--pop-sky-bold) 16%);
+  --pop-pink: color-mix(in oklch, var(--canvas), var(--pop-pink-bold) 16%);
+  --pop-orange: color-mix(in oklch, var(--canvas), var(--pop-orange-bold) 12%);
+  --credit: oklch(0.78 0.16 150);
+  --debit: oklch(0.72 0.19 27);
+  --credit-text: var(--credit);
+  --debit-text: var(--debit);
+  --muted-ink: color-mix(in oklch, var(--ink), var(--canvas) 30%);
+  --on-ink-muted: color-mix(in oklch, var(--canvas), var(--ink) 22%);
+}
+
+/* ── Derived tokens + shadcn semantic mapping ───────────────────────────────
+   Declared on BOTH :root and .dark so nested theme wrappers recompute. */
+:root,
+.dark {
+  /* v3.1 grammar: tokenized border widths + THREE shadow tiers, one
+     direction (down-right), no exceptions. sm = badges/chips/app cards,
+     md = marketing cards/buttons, lg = dialogs/popovers/toasts. */
+  --border-w: 2px;
+  --border-w-emph: 3px;
+  --shadow-hard-sm: 3px 3px 0 0 var(--ink);
+  --shadow-hard-md: 5px 5px 0 0 var(--ink);
+  --shadow-hard-lg: 8px 8px 0 0 var(--ink);
+  --shadow-hover: 7px 7px 0 0 var(--ink);
+  /* Section-title offset shadow: BOLD yellow on canvas sections and the
+     closing band; pop panels override per section. */
+  --title-shadow: var(--pop-yellow-bold);
+  /* BOLD role: primary actions stay electric in both themes. */
+  --action: var(--pop-yellow-bold);
+  --on-accent: var(--ink-deep);
+  --paper-2: color-mix(in oklch, var(--canvas), var(--ink) 5%);
+  --debit-deep: color-mix(in oklch, var(--debit), var(--ink) 30%);
+  /* Legacy aliases — widths come from border-2 classes. */
+  --hairline: var(--ink);
+  --rule: var(--ink);
+  /* Positive-amount / link text keeps the ledger-green heritage. */
+  --primary-text: var(--credit-text);
+
+  --background: var(--canvas);
+  --foreground: var(--ink);
+  --card: var(--canvas);
+  --card-foreground: var(--ink);
+  --popover: var(--canvas);
+  --popover-foreground: var(--ink);
+  /* Primary buttons are ACTION yellow. Text is the FIXED dark token —
+     theme-safe pairing on a bold fill (Dark Mode v2). */
+  --primary: var(--action);
+  --primary-foreground: var(--ink-deep);
+  --secondary: var(--paper-2);
+  --secondary-foreground: var(--ink);
+  --muted: var(--paper-2);
+  --muted-foreground: var(--muted-ink);
+  /* Neutral hover tint for menus — never a pop color. */
+  --accent: color-mix(in oklch, var(--ink), transparent 90%);
+  --accent-foreground: var(--ink);
+  /* Row-hover wash keeps the credit-green heritage. */
+  --accent-soft: color-mix(in oklch, var(--credit), transparent 88%);
+  --destructive: var(--debit-deep);
+  --destructive-foreground: var(--canvas);
+  --border: var(--ink);
+  --input: var(--ink);
+  --ring: var(--ink);
+  /* Charts are data accents — the five BOLD pops (Dark Mode v2). */
+  --chart-1: var(--pop-yellow-bold);
+  --chart-2: var(--pop-mint-bold);
+  --chart-3: var(--pop-sky-bold);
+  --chart-4: var(--pop-pink-bold);
+  --chart-5: var(--pop-orange-bold);
+  --sidebar: var(--paper-2);
+  --sidebar-foreground: var(--ink);
+  --sidebar-primary: var(--action);
+  --sidebar-primary-foreground: var(--ink-deep);
+  --sidebar-accent: color-mix(in oklch, var(--ink), transparent 90%);
+  --sidebar-accent-foreground: var(--ink);
+  --sidebar-border: var(--ink);
+  --sidebar-ring: var(--ink);
+  /* The big ink blocks (closing band, footer): ink in light mode. */
+  --band-bg: var(--foreground);
+  --band-fg: var(--background);
+  --band-muted: var(--on-ink-muted);
+}
+
+/* Dark Mode v2 overrides — AFTER the derived block so they win. */
+.dark {
+  /* Cards: one clear step above canvas (replaces the 5% mix). */
+  --paper-2: oklch(0.215 0.018 80);
+  /* Focus goes bold at night. */
+  --ring: var(--pop-yellow-bold);
+  --sidebar-ring: var(--pop-yellow-bold);
+  /* A full-width cream band is glare — the big ink blocks become
+     elevated dark panels with cream text instead. */
+  --band-bg: var(--paper-2);
+  --band-fg: var(--ink);
+  --band-muted: var(--muted-ink);
+}
+
+/* v4 register scoping: inside the marketing shell (<main class="loud">)
+   borders and shadow tiers get louder; the app keeps the calm values. */
+.loud {
+  --border-w: 3px;
+  --border-w-emph: 4px;
+  --shadow-hard-sm: 6px 6px 0 0 var(--ink);
+  --shadow-hard-md: 9px 9px 0 0 var(--ink);
+  --shadow-hard-lg: 12px 12px 0 0 var(--ink);
+  --shadow-hover: 11px 11px 0 0 var(--ink);
+  /* v4.2 body type: marketing copy runs 18px/500 and FULL INK by
+     default — muted is reserved for genuinely secondary lines
+     (captions, legal, timestamps, mono metadata). Explicitly sized
+     elements (eyebrows, chips, buttons) keep their own scale. */
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  /* v3.1 premium detail: selection carries the brand. Dark mode swaps in
+     the muted yellow with light ink — 11.0:1 either way. */
+  ::selection {
+    background-color: var(--pop-yellow-bold);
+    color: var(--ink-deep);
+  }
+  /* v4.6 cursor rule, set at the primitive level: every enabled
+     interactive element is a pointer; disabled controls are not. */
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  summary,
+  label[for] {
+    cursor: pointer;
+  }
+  button:disabled {
+    cursor: default;
+  }
+  html {
+    @apply font-sans;
+  }
+  body {
+    @apply bg-background text-foreground;
+    /* DESIGN.md v3 hard rule 8: all numerals tabular. */
+    font-variant-numeric: tabular-nums;
+  }
+  /* Base headings are Bricolage (subhead face). Archivo Black is applied
+     ONLY via text-display / text-title (DESIGN.md v4 hard rule 4). */
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    text-wrap: balance;
+  }
+  h1 {
+    font-weight: 800;
+    line-height: 1.02;
+  }
+}
+
+@layer components {
+  /* Press physics (DESIGN.md v3.1 hard rule 2): rest at the md tier,
+     hover grows +2px, active collapses to 0. */
+  .press {
+    box-shadow: var(--shadow-hard-md);
+    transition:
+      translate 150ms ease,
+      box-shadow 150ms ease;
+  }
+  .press:hover {
+    translate: -2px -2px;
+    box-shadow: var(--shadow-hover);
+  }
+  .press:active {
+    translate: 2px 2px;
+    box-shadow: 0 0 0 0 var(--ink);
+  }
+
+  /* Marker highlight: skewed pop-yellow swoosh behind heading words and
+     the active nav pill. Draws in once on view where supported. */
+  .marker {
+    position: relative;
+    isolation: isolate;
+    white-space: nowrap;
+  }
+  .marker {
+    /* Text pairs with the highlight color: fixed dark on bold pops;
+       sections using a canvas swoosh set --marker-ink to var(--ink). */
+    color: var(--marker-ink, var(--ink-deep));
+  }
+  .marker::before {
+    content: "";
+    position: absolute;
+    inset: 10% -0.18em;
+    z-index: -1;
+    background: var(--marker-color, var(--pop-yellow-bold));
+    border-radius: 0.4em;
+    transform: skewX(-8deg);
+  }
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .marker::before {
+        transform-origin: left center;
+        animation: marker-draw 250ms ease-out both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 30%;
+      }
+    }
+  }
+
+  /* Toasts float on the lg tier and enter with a press-release: they
+     slide in from the shadow offset. `translate` composes with sonner's
+     transform-based positioning; the kill switch below covers it. */
+  .cn-toast {
+    border: 2px solid var(--ink) !important;
+    border-radius: var(--radius) !important;
+    box-shadow: var(--shadow-hard-lg) !important;
+    animation: toast-press-in 200ms ease-out;
+  }
+
+  /* v4.5 calm-tier button physics — every (app) button: rest sm shadow,
+     hover 1px lift + md shadow, active flat, disabled no shadow. */
+  .press-calm {
+    box-shadow: var(--shadow-hard-sm);
+    transition:
+      translate 120ms ease,
+      box-shadow 120ms ease;
+  }
+  .press-calm:hover {
+    translate: -1px -1px;
+    box-shadow: var(--shadow-hard-md);
+  }
+  .press-calm:active {
+    translate: 1px 1px;
+    box-shadow: 0 0 0 0 var(--ink);
+  }
+  .press-calm:disabled {
+    translate: 0 0;
+    box-shadow: none;
+  }
+
+  /* v4.5 skeleton shimmer — THE one sanctioned gradient (a moving
+     highlight, not a surface style). Reduced motion: static block. */
+  .skeleton-shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .skeleton-shimmer::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      transform: translateX(-100%);
+      background: linear-gradient(
+        90deg,
+        transparent,
+        color-mix(in oklch, var(--ink), transparent 92%),
+        transparent
+      );
+      animation: skeleton-shimmer 1.2s linear infinite;
+    }
+  }
+
+  /* v4.1 chip grammar: bordered pill, cream bg; hover flips to
+     pop-yellow with a small lift + sm shadow; active presses flat.
+     Nav links, footer links, the git-clone chip, inline CTAs. */
+  .chip {
+    border: var(--border-w) solid var(--ink);
+    border-radius: 9999px;
+    background: var(--background);
+    transition:
+      translate 120ms ease,
+      box-shadow 120ms ease,
+      background-color 120ms ease,
+      color 120ms ease;
+  }
+  .chip:hover {
+    /* Per-surface override: on the yellow hero, yellow-on-yellow is
+       invisible — set --chip-hover (e.g. pop-sky-bold) on the section.
+       Bold fill + fixed dark text = theme-safe (Dark Mode v2). */
+    background: var(--chip-hover, var(--pop-yellow-bold));
+    color: var(--ink-deep);
+    translate: -1px -1px;
+    box-shadow: var(--shadow-hard-sm);
+  }
+  .chip:active {
+    translate: 1px 1px;
+    box-shadow: 0 0 0 0 var(--ink);
+  }
+  /* v4.6 audit: chips get the standard 3px focus ring. */
+  .chip:focus-visible,
+  .footer-chip:focus-visible {
+    outline: 3px solid var(--ring);
+    outline-offset: 2px;
+  }
+
+  /* v4.4 footer chips: large rounded chips, cream-on-ink outline;
+     hover flips pop-yellow + ink text with a lift and a LIGHT shadow
+     (canvas — an ink shadow is invisible on the ink block); active
+     presses flat. Both themes work because border/text read
+     --background against the bg-foreground footer. */
+  .footer-chip {
+    display: inline-block;
+    border: 2px solid var(--band-fg);
+    border-radius: 10px;
+    padding: 0.65rem 1rem;
+    font-family: var(--font-mono);
+    font-size: 17px;
+    line-height: 1;
+    color: var(--band-fg);
+    transition:
+      translate 120ms ease,
+      box-shadow 120ms ease,
+      background-color 120ms ease,
+      color 120ms ease;
+  }
+  .footer-chip:hover {
+    background: var(--pop-yellow-bold);
+    border-color: var(--ink-deep);
+    color: var(--ink-deep);
+    translate: -1px -1px;
+    box-shadow: 3px 3px 0 0 var(--band-fg);
+  }
+  .footer-chip:active {
+    translate: 1px 1px;
+    box-shadow: 0 0 0 0 var(--band-fg);
+  }
+
+  /* Marker that draws in on hover — author links, footer credit. Set
+     --marker-color per surface (cream on yellow, yellow elsewhere). */
+  .marker-hover {
+    position: relative;
+    isolation: isolate;
+    white-space: nowrap;
+  }
+  .marker-hover:hover {
+    color: var(--marker-ink, var(--ink-deep));
+  }
+  .marker-hover::before {
+    content: "";
+    position: absolute;
+    inset: 10% -0.18em;
+    z-index: -1;
+    background: var(--marker-color, var(--pop-yellow-bold));
+    border-radius: 0.4em;
+    transform: skewX(-8deg) scaleX(0);
+    transform-origin: left center;
+    transition: transform 150ms ease;
+  }
+  .marker-hover:hover::before {
+    transform: skewX(-8deg) scaleX(1);
+  }
+}
+
+/* Hard offset shadows — never blurred, always down-right (v3.1 tiers). */
+@utility shadow-hard-sm {
+  box-shadow: var(--shadow-hard-sm);
+}
+@utility shadow-hard {
+  box-shadow: var(--shadow-hard-md);
+}
+@utility shadow-hard-lg {
+  box-shadow: var(--shadow-hard-lg);
+}
+
+/* Register-scoped border widths (DESIGN.md v4 hard rule 2): border-hard
+   = 2px app / 3px marketing; border-emph = 3px app / 4px marketing hero. */
+@utility border-hard {
+  border-width: var(--border-w);
+}
+@utility border-emph {
+  border-width: var(--border-w-emph);
+}
+
+/* Dot-grid texture — v4: NEVER behind text; only thin transition strips
+   between sections (optional) or inside illustrations. */
+@utility dot-grid {
+  background-image: radial-gradient(
+    color-mix(in oklch, var(--ink), transparent 85%) 1.5px,
+    transparent 1.5px
+  );
+  background-size: 26px 26px;
+}
+
+/* Inline text link (v4.1 hover grammar): underline at rest, yellow
+   bg-flip on hover — no color-only or underline-only hovers anywhere. */
+@utility link-pop {
+  color: var(--primary-text);
+  border-radius: 4px;
+  text-decoration-line: underline;
+  text-underline-offset: 4px;
+  transition:
+    background-color 120ms ease,
+    color 120ms ease;
+  &:hover {
+    background-color: var(--pop-yellow-bold);
+    color: var(--ink-deep);
+  }
+}
+
+/* Inline mono chip (v4.1 typographic effects): key numbers and code-ish
+   tokens inside body copy. Static — not an interactive chip. */
+@utility chip-mono {
+  display: inline-block;
+  border: 2px solid var(--ink);
+  border-radius: 9999px;
+  background: var(--canvas);
+  padding: 0 0.55em;
+  font-family: var(--font-mono);
+  font-size: 0.8em;
+  line-height: 1.65;
+  white-space: nowrap;
+}
+
+/* Mono uppercase micro-label (eyebrows). */
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted-ink);
+}
+
+/* v4 display type: Archivo Black, uppercase, offset --title-shadow.
+   text-display = hero H1; text-title = section titles. Archivo has a
+   single 400 weight — never synthesize bold. */
+@utility text-display {
+  font-family: var(--font-display);
+  /* Floor low enough that the nbsp-joined "A COMPLETE" hero line fits
+     even a 320px viewport without wrapping or clipping (v4.4). */
+  font-size: clamp(2.5rem, 1rem + 7vw, 7rem);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 0.95;
+  text-transform: uppercase;
+  text-wrap: balance;
+  text-shadow: 0.05em 0.05em 0 var(--title-shadow);
+}
+@utility text-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 1.6rem + 2.4vw, 4.5rem);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 0.98;
+  text-transform: uppercase;
+  text-wrap: balance;
+  text-shadow: 0.05em 0.05em 0 var(--title-shadow);
+}
+
+@keyframes ledger-in {
+  from {
+    opacity: 0;
+    translate: 0 4px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes wobble {
+  0% {
+    rotate: -2deg;
+  }
+  50% {
+    rotate: 1deg;
+  }
+  100% {
+    rotate: -2deg;
+  }
+}
+
+@keyframes marker-draw {
+  from {
+    scale: 0 1;
+  }
+  to {
+    scale: 1 1;
+  }
+}
+
+@keyframes skeleton-shimmer {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+/* v4.5 busy indicator: the 4-point sparkle spins instead of any default
+   spinner. Static under reduced motion. */
+@keyframes sparkle-spin {
+  to {
+    rotate: 360deg;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .sparkle-spin {
+    animation: sparkle-spin 0.9s linear infinite;
+  }
+}
+
+.dark .illo {
+  filter: drop-shadow(3px 3px 0 var(--ink));
+}
+
+/* Toast entry: released from the pressed position (see .cn-toast). */
+@keyframes toast-press-in {
+  from {
+    translate: 6px 6px;
+  }
+  to {
+    translate: 0 0;
+  }
+}
+
+/* Cross-document View Transitions between marketing pages where the
+   browser supports them (Chrome 126+). Next.js Link navigations are
+   same-document and stay instant by design — revisit when Next's
+   experimental viewTransition flag stabilizes. Reduced-motion browsers
+   skip these natively. */
+@view-transition {
+  navigation: auto;
+}
+
+/* The one sanctioned loop: slow sparkle twinkle. */
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+@utility twinkle {
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+/* ── v4 motion kit (DESIGN.md hard rule 11) ────────────────────────────
+   Everything here is gated behind prefers-reduced-motion:no-preference
+   because `both` fills + delays would otherwise hide content: the global
+   kill switch shortens durations but not delays. */
+
+/* Scroll pop-in: from-only keyframe interpolates to each element's OWN
+   computed style, so the shadow grows to whatever tier it carries. */
+@keyframes pop-in-kf {
+  from {
+    opacity: 0;
+    translate: 0 28px;
+    box-shadow: 0 0 0 0 var(--ink);
+  }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .pop-in {
+      animation: pop-in-kf linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 35%;
+    }
+  }
+}
+
+/* Seamless loop: content is duplicated exactly 2x, so translating the
+   track 0 → -50% lands on an identical frame. transform (not translate)
+   + will-change keeps it compositor-only. */
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Hero entrance choreography: words pop (overshoot bezier), the
+   illustration drops with one bounce, the sticker lands last. */
+@keyframes hero-word-in {
+  from {
+    opacity: 0;
+    translate: 0 24px;
+    scale: 0.85;
+  }
+}
+@keyframes drop-bounce {
+  0% {
+    opacity: 0;
+    translate: 0 -48px;
+  }
+  60% {
+    opacity: 1;
+    translate: 0 6px;
+  }
+  80% {
+    translate: 0 -3px;
+  }
+  100% {
+    translate: 0 0;
+  }
+}
+@keyframes sticker-land {
+  0% {
+    opacity: 0;
+    scale: 1.6;
+    rotate: 6deg;
+  }
+  70% {
+    opacity: 1;
+    scale: 0.96;
+  }
+  100% {
+    scale: 1;
+  }
+}
+@keyframes float-idle {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -3px;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .marquee {
+    animation: marquee-scroll 30s linear infinite;
+    will-change: transform;
+  }
+  .marquee:hover {
+    animation-play-state: paused;
+  }
+  .hero-word {
+    animation: hero-word-in 400ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+  .hero-art {
+    animation: drop-bounce 400ms ease-out 350ms both;
+  }
+  .hero-sticker {
+    animation:
+      sticker-land 300ms ease-out 650ms both,
+      wobble 250ms ease-in-out 1000ms;
+  }
+  .float-idle {
+    animation: float-idle 4s ease-in-out 1.2s infinite;
+  }
+  /* Marketing card hover: tilt + lift (never inside the app). */
+  .tilt,
+  .tilt-l {
+    transition:
+      rotate 150ms ease,
+      translate 150ms ease;
+  }
+  .tilt:hover {
+    rotate: 1deg;
+    translate: 0 -3px;
+  }
+  .tilt-l:hover {
+    rotate: -1deg;
+    translate: 0 -3px;
+  }
+}
+
+/* The kill switch is law (DESIGN.md v4 hard rule 10) — covers the press,
+   markers, twinkle, staggers, tw-animate-css, and radix animations.
+   (Entrance/scroll animations are additionally gated behind
+   no-preference above, since delays aren't shortened here.) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Print has no scroll timeline: without this, view()-driven pop-ins
+   would print at opacity 0. */
+@media print {
+  *,
+  ::before,
+  ::after {
+    animation: none !important;
+  }
+}

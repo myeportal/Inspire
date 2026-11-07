@@ -1,0 +1,168 @@
+import { betterAuth } from "better-auth";
+import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { magicLink } from "better-auth/plugins";
+
+import { db } from "@/db";
+import * as schema from "@/db/schema";
+import MagicLinkEmail from "@/emails/magic-link";
+import ResetPasswordEmail from "@/emails/reset-password";
+import VerifyEmail from "@/emails/verify-email";
+import WelcomeEmail from "@/emails/welcome";
+import {
+  cancelSubscriptionsForUser,
+  ensureStripeCustomer,
+} from "@/lib/billing/customer";
+import { grantWelcomeCredits } from "@/lib/credits";
+import { sendEmail } from "@/lib/email";
+import { env, features } from "@/lib/env";
+
+// Server-side Better Auth instance. The HTTP surface is mounted at
+// src/app/api/auth/[...all]/route.ts; session helpers live in ./session.
+// OAuth providers and magic links are feature-flagged by env — a missing
+// pair of keys hides that option instead of crashing (AGENTS.md gotchas).
+
+const socialProviders: NonNullable<
+  Parameters<typeof betterAuth>[0]["socialProviders"]
+> = {};
+if (features.googleOAuth && env.GOOGLE_CLIENT_ID && env.GOOGLE_CLIENT_SECRET) {
+  socialProviders.google = {
+    clientId: env.GOOGLE_CLIENT_ID,
+    clientSecret: env.GOOGLE_CLIENT_SECRET,
+  };
+}
+if (features.githubOAuth && env.GITHUB_CLIENT_ID && env.GITHUB_CLIENT_SECRET) {
+  socialProviders.github = {
+    clientId: env.GITHUB_CLIENT_ID,
+    clientSecret: env.GITHUB_CLIENT_SECRET,
+  };
+}
+
+export const auth = betterAuth({
+  baseURL: env.BETTER_AUTH_URL,
+  secret: env.BETTER_AUTH_SECRET,
+  database: drizzleAdapter(db, {
+    provider: "pg",
+    schema,
+    usePlural: true,
+  }),
+  user: {
+    additionalFields: {
+      // Managed by the app, never by client input.
+      stripeCustomerId: { type: "string", required: false, input: false },
+      creditBalance: {
+        type: "number",
+        required: false,
+        defaultValue: 0,
+        input: false,
+      },
+    },
+    changeEmail: {
+      enabled: true,
+      sendChangeEmailConfirmation: async ({ user, newEmail, url }) => {
+        await sendEmail({
+          to: user.email, // current address must approve the change
+          subject: "Approve your email change",
+          text: `Confirm changing your account email to ${newEmail}:\n\n${url}\n\nIf you didn't request this, ignore this email.`,
+        });
+      },
+    },
+    deleteUser: {
+      enabled: true,
+      sendDeleteAccountVerification: async ({ user, url }) => {
+        await sendEmail({
+          to: user.email,
+          subject: "Confirm account deletion",
+          text: `This permanently deletes your account and data:\n\n${url}\n\nIf you didn't request this, ignore this email.`,
+        });
+      },
+      beforeDelete: async (user) => {
+        // Cancel Stripe subscriptions before the DB rows cascade away —
+        // afterwards there is no record left to find the customer by.
+        if (features.billing) {
+          await cancelSubscriptionsForUser(user.id);
+        }
+      },
+    },
+  },
+  emailAndPassword: {
+    enabled: true,
+    // Without Resend, verification emails can't be delivered — requiring
+    // verification would brick signup. Degrade to unverified accounts in
+    // keyless dev; production setups configure RESEND_API_KEY.
+    requireEmailVerification: features.email,
+    sendResetPassword: async ({ user, url }) => {
+      await sendEmail({
+        to: user.email,
+        subject: "Reset your password",
+        react: ResetPasswordEmail({ url }),
+      });
+    },
+  },
+  emailVerification: {
+    sendOnSignUp: features.email,
+    autoSignInAfterVerification: true,
+    sendVerificationEmail: async ({ user, url }) => {
+      await sendEmail({
+        to: user.email,
+        subject: "Verify your email address",
+        react: VerifyEmail({ url }),
+      });
+    },
+  },
+  socialProviders,
+  databaseHooks: {
+    user: {
+      create: {
+        after: async (user) => {
+          // Every new account gets its welcome credits through the ledger —
+          // idempotent on welcome_{userId}.
+          await grantWelcomeCredits(user.id);
+          // Welcome email is best-effort — signup never fails on email.
+          try {
+            await sendEmail({
+              to: user.email,
+              subject: "Welcome — your credits are ready",
+              react: WelcomeEmail({
+                name: user.name,
+                appUrl: env.BETTER_AUTH_URL,
+              }),
+            });
+          } catch (error) {
+            console.error(
+              "[email] welcome email failed:",
+              error instanceof Error ? error.message : error,
+            );
+          }
+          // Stripe customers are created at signup, never lazily at
+          // checkout. Failure is non-fatal: signup must not depend on
+          // Stripe uptime; ensureStripeCustomer heals at checkout.
+          if (features.billing) {
+            try {
+              await ensureStripeCustomer(user);
+            } catch (error) {
+              console.error(
+                "[billing] Stripe customer creation at signup failed:",
+                error instanceof Error ? error.message : error,
+              );
+            }
+          }
+        },
+      },
+    },
+  },
+  plugins: features.email
+    ? [
+        magicLink({
+          sendMagicLink: async ({ email, url }) => {
+            await sendEmail({
+              to: email,
+              subject: "Your sign-in link",
+              react: MagicLinkEmail({ url }),
+            });
+          },
+        }),
+      ]
+    : [],
+});
+
+export type Session = typeof auth.$Infer.Session;
