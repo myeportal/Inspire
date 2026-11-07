@@ -1,99 +1,68 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { CoinsIcon, DoorOpenIcon, InfinityIcon } from "lucide-react";
-
-import { plans, topupPack } from "@/config/plans";
-
-import { DigitBoxes } from "@/components/digit-boxes";
-import { IconChip } from "@/components/icon-chip";
-
-const featureIcons = [CoinsIcon, InfinityIcon, DoorOpenIcon] as const;
 
 export const metadata: Metadata = {
-  title: "Pricing",
+  title: "Membership",
   description:
-    "Free plan with welcome credits; Pro and Ultra subscriptions grant monthly credits that never expire.",
+    "Join INSPIRE for $1/month and unlock weekly shorts, creator prompts, and community features.",
 };
 
-function usd(cents: number): string {
-  return `$${(cents / 100).toLocaleString("en-US", { maximumFractionDigits: 2 })}`;
-}
+const inclusions = [
+  "A new flagship short every week",
+  "Creator prompts and remix tools",
+  "Featured-story consideration",
+  "A private member community",
+] as const;
 
-// Single source of truth: src/config/plans.ts drives every number here.
 export default function PricingPage() {
   return (
-    <div className="mx-auto w-full max-w-[1160px] px-6 pt-24 pb-26">
-      <div className="mb-11 max-w-[62ch]">
-        <p className="eyebrow">Pricing</p>
-        <h1 className="text-display mt-4 mb-3">
-          Integer credits. No expiry. No surprises.
-        </h1>
-        <p className="mt-2 text-xl">
-          Every plan reads from one config file — checkout and webhook grants
-          follow it.
+    <div className="mx-auto w-full max-w-[1160px] px-6 pt-24 pb-26 [--title-shadow:var(--pop-yellow-bold)]">
+      <div className="max-w-3xl">
+        <p className="eyebrow">Membership</p>
+        <h1 className="text-display mt-4">Join INSPIRE for $1</h1>
+        <p className="mt-5 text-xl">
+          One simple membership. Weekly emotional shorts, creator tools, and a community built around being there.
         </p>
       </div>
 
-      <div className="border-t-2 border-rule">
-        {Object.values(plans).map((plan) => (
-          <div
-            key={plan.id}
-            className="grid grid-cols-[64px_1fr] items-baseline gap-x-6 gap-y-2 border-b-2 px-2 py-7 transition-colors hover:bg-accent-soft sm:grid-cols-[64px_160px_1fr_auto]"
-          >
-            <span className="font-mono text-xs text-muted-foreground">
-              {plan.id}
-            </span>
-            <h2 className="font-heading text-2xl font-extrabold">
-              {plan.name}
-            </h2>
-            <ul className="col-start-2 min-w-0 space-y-2 sm:col-start-3">
-              {plan.features.map((feature, fi) => (
-                <li
-                  key={feature}
-                  className="flex items-center gap-3 text-lg font-medium"
-                >
-                  <IconChip
-                    icon={featureIcons[fi % featureIcons.length]}
-                    className="size-8"
-                  />
-                  {feature}
-                </li>
-              ))}
-            </ul>
-            <div className="col-start-2 sm:col-start-4 sm:justify-self-end">
-              {plan.priceMonthlyCents === 0 ? (
-                <span className="font-mono text-sm">free</span>
-              ) : (
-                <span className="flex items-end gap-1">
-                  <DigitBoxes size="sm" value={usd(plan.priceMonthlyCents)} />
-                  <span className="font-mono text-xs text-muted-foreground">
-                    /mo
-                  </span>
+      <div className="mt-12 grid gap-6 lg:grid-cols-[1fr_0.85fr]">
+        <div className="border-hard rounded-[32px] bg-pop-orange p-7 shadow-hard-lg sm:p-9">
+          <p className="font-mono text-sm uppercase text-muted-foreground">Included</p>
+          <div className="mt-6 grid gap-4">
+            {inclusions.map((item, index) => (
+              <div key={item} className="border-hard flex items-center gap-4 rounded-2xl bg-background px-5 py-4 shadow-hard-sm">
+                <span className="border-hard flex size-10 items-center justify-center rounded-full bg-pop-yellow font-mono text-sm shadow-hard-sm">
+                  0{index + 1}
                 </span>
-              )}
-            </div>
-          </div>
-        ))}
-        <div className="grid grid-cols-[64px_1fr] items-baseline gap-x-6 gap-y-2 border-b-2 px-2 py-7 transition-colors hover:bg-accent-soft sm:grid-cols-[64px_160px_1fr_auto]">
-          <span className="font-mono text-xs text-muted-foreground">topup</span>
-          <h2 className="text-xl">{topupPack.name}</h2>
-          <p className="col-start-2 text-xl sm:col-start-3">
-            {topupPack.credits} credits, one-time. No subscription required —
-            stack them whenever you run low.
-          </p>
-          <div className="col-start-2 sm:col-start-4 sm:justify-self-end">
-            <DigitBoxes size="sm" value={usd(topupPack.priceCents)} />
+                <p className="text-lg">{item}</p>
+              </div>
+            ))}
           </div>
         </div>
-      </div>
 
-      <p className="mt-10 text-xl">
-        Start free —{" "}
-        <Link href="/signup" className="link-pop">
-          create an account
-        </Link>{" "}
-        and the welcome credits are waiting. Top up from Billing.
-      </p>
+        <aside className="border-hard rounded-[32px] bg-background p-7 shadow-hard-lg sm:p-9">
+          <p className="font-mono text-sm uppercase text-muted-foreground">Offer</p>
+          <p className="mt-4 font-heading text-6xl font-extrabold">$1</p>
+          <p className="mt-1 font-mono text-sm uppercase text-muted-foreground">per month</p>
+          <p className="mt-6 text-lg">
+            Start with the first pass membership and help shape the early community.
+          </p>
+          <div className="mt-8 flex flex-col gap-3">
+            <Link
+              href="/signup"
+              className="border-hard press inline-flex items-center justify-center rounded-xl bg-primary px-6 py-4 text-base font-semibold text-primary-foreground"
+            >
+              Become a member
+            </Link>
+            <Link
+              href="/"
+              className="border-hard press inline-flex items-center justify-center rounded-xl bg-card px-6 py-4 text-base font-semibold"
+            >
+              Back to homepage
+            </Link>
+          </div>
+        </aside>
+      </div>
     </div>
   );
 }
