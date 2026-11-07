@@ -1,13 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import {
-  ArrowRightIcon,
-  BotIcon,
-  CpuIcon,
-  NetworkIcon,
-  PlayCircleIcon,
-  SparklesIcon,
-} from "lucide-react";
+import { ArrowRightIcon, PlayCircleIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -128,119 +121,104 @@ export function ProductionShowcase({
   title?: string;
   description?: string;
 }) {
+  const highlights = [
+    "Human story first",
+    "Weekly drop rhythm",
+    "AI-assisted production",
+  ] as const;
+
+  const visuals = [
+    {
+      image: "/funnel/production-cloud.jpg",
+      alt: "A friendly cloud mascot surrounded by major platform icons, showing wide distribution potential for InspireMe content.",
+      aspect: "aspect-[4/5]",
+      accent: "bg-pop-pink",
+      label: "Reach",
+      sizes: "(max-width: 768px) 100vw, 240px",
+    },
+    {
+      image: "/funnel/production-studio.jpg",
+      alt: "A futuristic AI production workspace used to show how InspireMe can guide story creation, rendering, and editing.",
+      aspect: "aspect-[16/10]",
+      accent: "bg-pop-sky",
+      label: "Workflow",
+      sizes: "(max-width: 768px) 100vw, 420px",
+    },
+  ] as const;
+
   return (
-    <section className="overflow-hidden rounded-[28px] border-2 bg-linear-to-br from-[#16133d] via-[#22165c] to-[#0d1028] p-6 text-white shadow-hard-sm md:p-8">
-      <div className="max-w-3xl space-y-3">
-        <p className="eyebrow text-white/70">{eyebrow}</p>
-        <h2 className="font-display text-3xl leading-none md:text-4xl">{title}</h2>
-        <p className="max-w-2xl text-sm text-white/80 md:text-base">{description}</p>
-      </div>
+    <section className="border-hard overflow-hidden rounded-[32px] bg-card p-5 shadow-hard-lg sm:p-6 lg:p-8">
+      <div className="grid gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-center">
+        <div className="min-w-0 space-y-6">
+          <div className="max-w-xl">
+            <p className="eyebrow">{eyebrow}</p>
+            <h2 className="text-title mt-4 max-w-[14ch]">{title}</h2>
+            <p className="mt-4 max-w-2xl text-lg">{description}</p>
+          </div>
 
-      <div className="mt-6 grid gap-4 lg:grid-cols-2">
-        <article className="relative overflow-hidden rounded-[26px] border border-white/15 bg-[radial-gradient(circle_at_top,_rgba(73,198,255,0.35),_transparent_35%),linear-gradient(135deg,_rgba(91,61,255,0.88),_rgba(18,13,54,0.98))] p-5">
-          <div className="absolute inset-0 opacity-30 [background-image:radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.35)_1px,transparent_0)] [background-size:22px_22px]" />
-          <div className="relative space-y-5">
-            <div className="flex items-center justify-between text-xs uppercase tracking-[0.24em] text-white/65">
-              <span>Cloud distribution</span>
-              <NetworkIcon className="size-4" aria-hidden />
-            </div>
-            <div className="grid grid-cols-2 gap-3 text-sm">
+          <div className="flex flex-wrap gap-2.5 sm:gap-3">
+            {highlights.map((item, index) => (
+              <span
+                key={item}
+                className={cn(
+                  "border-hard rounded-full px-4 py-2 font-mono text-xs uppercase shadow-hard-sm sm:text-sm",
+                  index === 0
+                    ? "bg-pop-yellow"
+                    : index === 1
+                      ? "bg-pop-mint"
+                      : "bg-pop-pink",
+                )}
+              >
+                {item}
+              </span>
+            ))}
+          </div>
+
+          <div className="border-hard rounded-[24px] bg-background p-5 shadow-hard sm:p-6">
+            <ul className="space-y-3 text-base leading-7 sm:text-lg">
               {[
-                "Google",
-                "Amazon",
-                "Microsoft",
-                "Meta",
-              ].map((name) => (
-                <div key={name} className="rounded-2xl border border-white/15 bg-white/10 px-4 py-5 backdrop-blur">
-                  <p className="font-semibold">{name}</p>
-                  <p className="mt-2 text-white/70">Audience touchpoint</p>
-                </div>
+                "Use the uploaded images as support, not the whole pitch.",
+                "Keep the production story short and grounded in the member journey.",
+                "Bridge naturally into the flagship story instead of competing with it.",
+              ].map((item) => (
+                <li key={item} className="flex gap-3">
+                  <span className="mt-2 size-2 shrink-0 rounded-full bg-pop-yellow-bold" />
+                  <span>{item}</span>
+                </li>
               ))}
-            </div>
-            <div className="rounded-3xl border border-white/20 bg-black/20 p-5 backdrop-blur-sm">
-              <div className="flex items-center gap-3">
-                <div className="flex size-12 items-center justify-center rounded-full bg-white/10">
-                  <SparklesIcon className="size-6 text-pop-yellow" aria-hidden />
+            </ul>
+          </div>
+        </div>
+
+        <div className="min-w-0">
+          <div className="grid gap-4 md:grid-cols-[minmax(0,0.75fr)_minmax(0,1fr)]">
+            {visuals.map((visual) => (
+              <figure
+                key={visual.image}
+                className={cn(
+                  "border-hard overflow-hidden rounded-[28px] shadow-hard",
+                  visual.accent,
+                )}
+              >
+                <div className="flex items-center justify-between gap-3 px-4 pt-4 font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground sm:px-5 sm:pt-5">
+                  <span>{visual.label}</span>
+                  <span>Local image</span>
                 </div>
-                <div>
-                  <p className="text-lg font-semibold">Comfortable, friendly brand energy</p>
-                  <p className="text-sm text-white/70">Soft mascot energy can make the product feel safe before members ever upload.</p>
+                <div className="border-hard m-3 overflow-hidden rounded-[22px] bg-background shadow-hard-sm sm:m-4">
+                  <div className={cn("relative", visual.aspect)}>
+                    <Image
+                      src={visual.image}
+                      alt={visual.alt}
+                      fill
+                      className="object-cover"
+                      sizes={visual.sizes}
+                    />
+                  </div>
                 </div>
-              </div>
-            </div>
+              </figure>
+            ))}
           </div>
-        </article>
-
-        <article className="relative overflow-hidden rounded-[26px] border border-white/15 bg-[radial-gradient(circle_at_top_right,_rgba(255,74,151,0.28),_transparent_28%),linear-gradient(135deg,_rgba(18,23,44,0.98),_rgba(16,69,95,0.92))] p-5">
-          <div className="absolute inset-0 opacity-25 [background-image:linear-gradient(rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.06)_1px,transparent_1px)] [background-size:26px_26px]" />
-          <div className="relative space-y-5">
-            <div className="flex items-center justify-between text-xs uppercase tracking-[0.24em] text-white/65">
-              <span>Creator workbench</span>
-              <CpuIcon className="size-4" aria-hidden />
-            </div>
-            <div className="grid gap-3 md:grid-cols-[0.9fr_1.1fr]">
-              <div className="rounded-2xl border border-cyan-300/20 bg-black/20 p-4 backdrop-blur-sm">
-                <p className="text-sm font-semibold">Director mode</p>
-                <p className="mt-3 text-sm text-white/70">Storyboard, script, and edit your weekly short in one place.</p>
-              </div>
-              <div className="rounded-2xl border border-pink-300/20 bg-black/20 p-4 backdrop-blur-sm">
-                <p className="text-sm font-semibold">AI render pass</p>
-                <p className="mt-3 text-sm text-white/70">Preview how prompts, scenes, and motion become a cinematic final drop.</p>
-              </div>
-            </div>
-            <div className="flex flex-wrap gap-3 text-xs uppercase tracking-[0.18em] text-white/75">
-              <span className="rounded-full border border-white/15 bg-white/10 px-3 py-2">Story ingest</span>
-              <span className="rounded-full border border-white/15 bg-white/10 px-3 py-2">Scene assembly</span>
-              <span className="rounded-full border border-white/15 bg-white/10 px-3 py-2">Quality review</span>
-              <span className="rounded-full border border-white/15 bg-white/10 px-3 py-2">Member release</span>
-            </div>
-            <div className="flex items-center gap-3 rounded-3xl border border-white/15 bg-white/10 p-4 backdrop-blur-sm">
-              <BotIcon className="size-5 text-pop-pink" aria-hidden />
-              <p className="text-sm text-white/80">This side helps members imagine the behind-the-scenes engine, not just the final video.</p>
-            </div>
-          </div>
-        </article>
-      </div>
-
-      <div className="mt-4 grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
-        <article className="overflow-hidden rounded-[26px] border border-white/15 bg-white/5 shadow-hard-sm backdrop-blur-sm">
-          <div className="relative aspect-square">
-            <Image
-              src="/funnel/production-cloud.jpg"
-              alt="A friendly cloud mascot surrounded by major platform icons, showing wide distribution potential for InspireMe content."
-              fill
-              className="object-cover"
-              sizes="(max-width: 1024px) 100vw, 33vw"
-            />
-          </div>
-          <div className="space-y-2 p-4">
-            <p className="text-xs uppercase tracking-[0.2em] text-white/65">Exact reference image</p>
-            <p className="text-sm text-white/80">We use this in the funnel to make the distribution side of the platform feel approachable, broad, and brand-safe.</p>
-          </div>
-        </article>
-
-        <article className="overflow-hidden rounded-[26px] border border-white/15 bg-white/5 shadow-hard-sm backdrop-blur-sm">
-          <div className="relative aspect-[16/9]">
-            <Image
-              src="/funnel/production-studio.jpg"
-              alt="A futuristic AI production workspace used to show how InspireMe can guide story creation, rendering, and editing."
-              fill
-              className="object-cover"
-              sizes="(max-width: 1024px) 100vw, 50vw"
-            />
-          </div>
-          <div className="space-y-2 p-4">
-            <p className="text-xs uppercase tracking-[0.2em] text-white/65">Exact reference image</p>
-            <p className="text-sm text-white/80">This anchors the how-it-gets-made story in the funnel so creators can picture the production workflow before uploads are fully wired.</p>
-          </div>
-        </article>
-      </div>
-
-      <div className="mt-4 flex flex-wrap gap-3 text-xs uppercase tracking-[0.18em] text-white/70">
-        <span className="rounded-full border border-white/15 bg-white/10 px-3 py-2">Human story first</span>
-        <span className="rounded-full border border-white/15 bg-white/10 px-3 py-2">AI-assisted production</span>
-        <span className="rounded-full border border-white/15 bg-white/10 px-3 py-2">Community amplified</span>
-        <span className="rounded-full border border-white/15 bg-white/10 px-3 py-2">Weekly drop rhythm</span>
+        </div>
       </div>
     </section>
   );

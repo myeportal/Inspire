@@ -311,48 +311,78 @@ export function InspireHome() {
         </div>
       </section>
 
-      <section className="border-b-[3px] bg-background py-16 sm:py-22">
+      <section className="bg-background pt-16 pb-10 sm:pt-22 sm:pb-12">
         <div className="mx-auto w-full max-w-[1160px] px-6">
           <ProductionShowcase
-            eyebrow="Production imagination"
-            title="Help people picture the machine behind the hope"
-            description="We’re weaving in visual cues inspired by your reference art so visitors can imagine the member journey, creator workflow, and AI-assisted production process before the deeper SaaS tools are fully wired."
+            eyebrow="How it comes together"
+            title="A simple glimpse behind the weekly drop"
+            description="A restrained visual bridge is enough here: show the member journey, hint at the workflow, then move quickly into the flagship story."
           />
         </div>
       </section>
 
-      <section id="flagship-story" className="border-b-[3px] bg-foreground py-16 text-background sm:py-22 [--title-shadow:var(--pop-yellow-bold)]">
+      <section id="flagship-story" className="border-b-[3px] bg-background pt-10 pb-16 sm:pt-12 sm:pb-22 [--title-shadow:var(--pop-pink-bold)]">
         <div className="mx-auto w-full max-w-[1160px] px-6">
-          <SectionTitle
-            eyebrow="Flagship story"
-            title="The film at the center"
-            subtitle="Lead with one signature story that sets the tone, then invite members to answer it."
-          />
-          <div className="mt-10 grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
-            <div className="border-hard rounded-[30px] bg-background/8 p-5 shadow-hard-lg">
-              <div className="flex aspect-[16/10] items-end rounded-[22px] border-hard border-background/70 bg-[radial-gradient(circle_at_top,#ffffff30,transparent_40%)] p-6">
-                <div>
-                  <p className="font-mono text-xs uppercase tracking-[0.18em] text-background/70">Video premiere</p>
-                  <h3 className="mt-3 max-w-md text-4xl font-extrabold">A story about the moment someone finally feels understood.</h3>
+          <div className="border-hard rounded-[32px] bg-card p-5 shadow-hard-lg sm:p-6 lg:p-7">
+            <SectionTitle
+              eyebrow="Flagship story"
+              title="The film at the center"
+              subtitle="Lead with one signature story that sets the tone, then invite members to answer it."
+            />
+            <div className="mt-8 grid gap-5 lg:grid-cols-[1.05fr_0.95fr] lg:gap-6">
+              <div className="overflow-hidden rounded-[30px] border-hard bg-pop-orange shadow-hard-lg">
+                <div className="border-b-[3px] bg-pop-pink p-5 sm:p-6">
+                  <div className="flex flex-wrap gap-2 text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+                    <span className="border-hard rounded-full bg-background px-3 py-1 shadow-hard-sm">Signature short</span>
+                    <span className="border-hard rounded-full bg-background px-3 py-1 shadow-hard-sm">Emotional anchor</span>
+                  </div>
+                  <div className="mt-8 flex aspect-[16/10] items-end">
+                    <div className="max-w-xl">
+                      <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">Video premiere</p>
+                      <h3 className="mt-3 text-3xl font-extrabold text-foreground sm:text-4xl lg:text-5xl">A story about the moment someone finally feels understood.</h3>
+                    </div>
+                  </div>
+                </div>
+                <div className="grid gap-4 p-5 sm:grid-cols-2 sm:p-6">
+                  <div className="border-hard rounded-[24px] bg-background p-5 shadow-hard-sm">
+                    <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">What it does</p>
+                    <p className="mt-3 text-lg font-semibold sm:text-xl">It gives the whole platform a heartbeat.</p>
+                  </div>
+                  <div className="border-hard rounded-[24px] bg-pop-yellow p-5 shadow-hard-sm">
+                    <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">What follows</p>
+                    <p className="mt-3 text-lg font-semibold sm:text-xl">Members answer with their own short, note, or remix.</p>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="grid gap-4">
-              <div className="border-hard rounded-[28px] bg-pop-yellow p-6 text-foreground shadow-hard">
-                <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">What it does</p>
-                <p className="mt-3 text-xl">It gives the whole platform a heartbeat.</p>
+              <div className="grid gap-4 lg:content-start">
+                <div className="border-hard rounded-[28px] bg-pop-sky p-5 shadow-hard sm:p-6">
+                  <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">Why it works</p>
+                  <p className="mt-3 max-w-[18ch] text-2xl font-extrabold text-foreground">One strong story makes the rest of the page make sense.</p>
+                </div>
+                <div className="border-hard rounded-[28px] bg-pop-mint p-5 shadow-hard sm:p-6">
+                  <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">Production bridge</p>
+                  <p className="mt-3 text-lg font-semibold text-foreground sm:text-xl">
+                    The production cues above earn trust first, then this story turns that visual promise into one clear emotional anchor.
+                  </p>
+                </div>
+                <div className="border-hard rounded-[28px] bg-background p-5 shadow-hard sm:p-6">
+                  <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">Member motion</p>
+                  <div className="mt-4 flex flex-wrap gap-3 text-xs uppercase tracking-[0.18em] sm:text-sm">
+                    <span className="border-hard rounded-full bg-pop-yellow px-3 py-2 shadow-hard-sm">Watch the short</span>
+                    <span className="border-hard rounded-full bg-pop-sky px-3 py-2 shadow-hard-sm">Create a response</span>
+                    <span className="border-hard rounded-full bg-pop-pink px-3 py-2 shadow-hard-sm">Share the feeling</span>
+                  </div>
+                </div>
+                <div className="border-hard rounded-[28px] bg-background p-3 shadow-hard sm:p-4">
+                  <Link
+                    href="/signup"
+                    className="border-hard press inline-flex w-full items-center justify-center gap-2 rounded-[18px] bg-pop-pink px-6 py-4 text-lg font-semibold text-foreground shadow-hard-sm"
+                  >
+                    Start your first response
+                    <StarIcon className="size-4" aria-hidden />
+                  </Link>
+                </div>
               </div>
-              <div className="border-hard rounded-[28px] bg-pop-sky p-6 text-foreground shadow-hard">
-                <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">What follows</p>
-                <p className="mt-3 text-xl">Members respond with their own short, note, or remix.</p>
-              </div>
-              <Link
-                href="/signup"
-                className="border-hard press inline-flex items-center justify-center gap-2 rounded-[20px] bg-pop-mint px-6 py-4 text-lg font-semibold text-foreground"
-              >
-                Start your first response
-                <StarIcon className="size-4" aria-hidden />
-              </Link>
             </div>
           </div>
         </div>
