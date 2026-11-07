@@ -136,10 +136,10 @@ export function ProductionShowcase({
             <span>Local image</span>
           </div>
           <div className="border-hard m-3 overflow-hidden rounded-[22px] bg-background shadow-hard-sm sm:m-4">
-            <div className="relative aspect-[16/10]">
+            <div className="relative aspect-square">
               <Image
-                src="/funnel/production-studio.jpg"
-                alt="A futuristic AI production workspace used to show how InspireMe can guide story creation, rendering, and editing."
+                src="/funnel/production-support.jpg"
+                alt="A friendly mascot-style support visual used inside the production section."
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 48vw"
